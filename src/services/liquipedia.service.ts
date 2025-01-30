@@ -49,7 +49,10 @@ const extractMatches = (html: string, gameName: string): Match[] => {
     const dateTime = extractDateTime(match);
     const format = extractMatchFormat(match);
 
-    if (isTeamInMatch(teamLeft.name, teamRight.name)) {
+    if (
+      isTeamInMatch(teamLeft.name, teamRight.name) &&
+      isMatchToday(dateTime)
+    ) {
       matches.push({
         teamLeft,
         teamRight,
