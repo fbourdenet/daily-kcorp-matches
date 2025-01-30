@@ -23,11 +23,13 @@ export const fetchAllMatches = async (): Promise<Match[]> => {
     }
   }
 
-  return matches.sort((a, b) => {
+  matches.sort((a, b) => {
     const dateA = new Date(a.dateTime || 0).getTime();
     const dateB = new Date(b.dateTime || 0).getTime();
-    return dateB - dateA;
+    return dateA - dateB;
   });
+
+  return matches;
 };
 
 const validateApiResponse = (data: any): void => {
