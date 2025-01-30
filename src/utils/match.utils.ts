@@ -1,11 +1,11 @@
 import { JSDOM } from "jsdom";
-import { Match, Team, Tournament } from "../interfaces/interfaces";
-import { BASE_URL, GAMES, WATCHED_TEAMS } from "../config/liquipedia.config";
+import { Match, Team, Tournament } from "../interfaces/match.interfaces";
+import { WATCHED_GAMES, WATCHED_TEAMS, BASE_URL } from "../config";
 
 export const fetchAllMatches = async (): Promise<Match[]> => {
   const matches: Match[] = [];
 
-  for (const { game, url } of GAMES) {
+  for (const { game, url } of WATCHED_GAMES) {
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -132,4 +132,16 @@ const isMatchToday = (dateTime: string | null): boolean => {
     matchDate.getMonth() === today.getMonth() &&
     matchDate.getFullYear() === today.getFullYear()
   );
+};
+
+export const match = {
+  fetchAllMatches,
+  isMatchToday,
+  isTeamInMatch,
+  extractMatchFormat,
+  extractDateTime,
+  extractTournamentData,
+  extractTeamData,
+  extractMatches,
+  validateApiResponse,
 };

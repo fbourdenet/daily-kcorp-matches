@@ -1,6 +1,15 @@
+import dotenv from "dotenv";
+
+dotenv.config()
+
+// DISCORD
+export const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN; 
+export const DISCORD_CHANNEL_ID = process.env.DISCORD_CHANNEL_ID; 
+
+// LIQUIPEDIA
 export const BASE_URL = "https://liquipedia.net";
 export const WATCHED_TEAMS = ["KC", "KCB", "KCBS"];
-export const GAMES = [
+export const WATCHED_GAMES = [
   {
     game: "League of Legends",
     url: "https://liquipedia.net/leagueoflegends/api.php?action=parse&format=json&contentmodel=wikitext&maxage=600&smaxage=600&disablelimitreport=true&uselang=content&prop=text&text={{MainPageMatches/Upcoming|filterbuttons-liquipediatier=3|filterbuttons-region=Europe}}",

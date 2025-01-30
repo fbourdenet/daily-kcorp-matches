@@ -14,5 +14,5 @@ export interface Match {
   tournament: Tournament;
   dateTime: string | null;
   format: string | null;
-  game: string | null;
+  game: string
 }
