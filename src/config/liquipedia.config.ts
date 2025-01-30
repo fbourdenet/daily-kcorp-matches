@@ -1,6 +1,5 @@
 export const BASE_URL = "https://liquipedia.net";
-// export const WATCHED_TEAMS = ["KC", "KCB", "KCBS"];
-export const WATCHED_TEAMS = ["M8"];
+export const WATCHED_TEAMS = ["KC", "KCB", "KCBS"];
 export const GAMES = [
   {
     game: "League of Legends",
