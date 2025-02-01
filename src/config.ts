@@ -12,6 +12,10 @@ export const WATCHED_TEAMS = ["KC", "KCB", "KCBS"];
 export const WATCHED_GAMES = [
   {
     game: "League of Legends",
+    url: "https://liquipedia.net/leagueoflegends/api.php?action=parse&format=json&contentmodel=wikitext&maxage=600&smaxage=600&disablelimitreport=true&uselang=content&prop=text&text={{MainPageMatches/Upcoming|filterbuttons-liquipediatier=4|filterbuttons-region=Europe}}",
+  },
+  {
+    game: "League of Legends",
     url: "https://liquipedia.net/leagueoflegends/api.php?action=parse&format=json&contentmodel=wikitext&maxage=600&smaxage=600&disablelimitreport=true&uselang=content&prop=text&text={{MainPageMatches/Upcoming|filterbuttons-liquipediatier=3|filterbuttons-region=Europe}}",
   },
   {
