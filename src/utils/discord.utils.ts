@@ -53,12 +53,11 @@ const createMatchesEmbed = (matches: Match[]): EmbedBuilder => {
 
     embed.addFields({
       name: `:clock10: ${dateTime}`,
-      value: `
-        :video_game: ${game}
-        ${tournament ? `:trophy: ${tournament}` : ""}
-        :crossed_swords: ${teamLeft} vs ${teamRight} ${format ? ` (${format})` : ""}
-        ${tournamentLink ? `:link: [Bracket link](${tournamentLink})` : ""}
-      `,
+      value: `${":video_game: " + game}\n${
+        tournament ? ":trophy: " + tournament + "\n" : ""
+      }${":crossed_swords: " + teamLeft + " vs " + teamRight}${
+        format ? " (" + format + ")" : ""
+      }\n${tournamentLink ? ":link: [Bracket link](" + tournamentLink + ")" : ""}`,
     });
   }
 
