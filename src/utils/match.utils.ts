@@ -117,7 +117,7 @@ const isTeamInMatch = (
   teamRightName: string | null
 ): boolean => {
   return WATCHED_TEAMS.some(
-    (name) => teamLeftName?.includes(name) || teamRightName?.includes(name)
+    (name) => teamLeftName === name || teamRightName === name
   );
 };
 
