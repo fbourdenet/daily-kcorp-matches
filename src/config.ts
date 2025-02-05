@@ -25,24 +25,30 @@ export const WATCHED_GAMES = [
     team: "KCB",
     name: "League of Legends",
     apiUrl:
-      "https://liquipedia.net/leagueoflegends/api.php?action=parse&format=json&contentmodel=wikitext&maxage=600&smaxage=600&disablelimitreport=true&uselang=content&prop=text&text={{MainPageMatches/Upcoming|filterbuttons-liquipediatier=3|filterbuttons-region=Europe}}",
+      "https://liquipedia.net/leagueoflegends/api.php?action=parse&format=json&contentmodel=wikitext&disablelimitreport=true&uselang=content&prop=text&text={{MainPageMatches/Upcoming|filterbuttons-liquipediatier=3|filterbuttons-region=Europe}}",
   },
   {
     team: "KC",
     name: "League of Legends",
     apiUrl:
-      "https://liquipedia.net/leagueoflegends/api.php?action=parse&format=json&contentmodel=wikitext&maxage=600&smaxage=600&disablelimitreport=true&uselang=content&prop=text&text={{MainPageMatches/Upcoming|filterbuttons-liquipediatier=1|filterbuttons-region=Europe}}",
+      "https://liquipedia.net/leagueoflegends/api.php?action=parse&format=json&contentmodel=wikitext&disablelimitreport=true&uselang=content&prop=text&text={{MainPageMatches/Upcoming|filterbuttons-liquipediatier=1|filterbuttons-region=Europe}}",
   },
   {
     team: "KC",
     name: "Valorant",
     apiUrl:
-      "https://liquipedia.net/valorant/api.php?action=parse&format=json&contentmodel=wikitext&maxage=600&smaxage=600&disablelimitreport=true&uselang=content&prop=text&text=%7B%7BMainPageMatches%2FUpcoming%7Cfilterbuttons-liquipediatier%3D1%2C2%7Cfilterbuttons-region%3DEurope%7D%7D",
+      "https://liquipedia.net/valorant/api.php?action=parse&format=json&contentmodel=wikitext&&disablelimitreport=true&uselang=content&prop=text&text={{MainPageMatches/Upcoming|filterbuttons-liquipediatier=1,2|filterbuttons-region=Europe}}",
+  },
+  {
+    team: "KCBS",
+    name: "Valorant",
+    apiUrl:
+      "https://liquipedia.net/valorant/api.php?action=parse&format=json&contentmodel=wikitext&disablelimitreport=true&uselang=content&prop=text&text={{MainPageMatches/Upcoming|filterbuttons-liquipediatier=3|filterbuttons-region=Europe}}",
   },
   {
     team: "KC",
     name: "Rocket League",
     apiUrl:
-      "https://liquipedia.net/rocketleague/api.php?action=parse&format=json&contentmodel=wikitext&maxage=600&smaxage=600&disablelimitreport=true&uselang=content&prop=text&text=%7B%7BMainPageMatches%2FUpcoming%7Cfilterbuttons-liquipediatier%3D1%2C2%7Cfilterbuttons-region%3DEurope%7D%7D",
+      "https://liquipedia.net/rocketleague/api.php?action=parse&format=json&contentmodel=wikitext&disablelimitreport=true&uselang=content&prop=text&text={{MainPageMatches/Upcoming|filterbuttons-liquipediatier=1,2|filterbuttons-region=Europe}}",
   },
 ];
