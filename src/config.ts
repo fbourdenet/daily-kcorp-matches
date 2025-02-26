@@ -39,6 +39,12 @@ export const WATCHED_GAMES = [
     apiUrl:
       "https://liquipedia.net/valorant/api.php?action=parse&format=json&contentmodel=wikitext&&disablelimitreport=true&uselang=content&prop=text&text={{MainPageMatches/Upcoming|filterbuttons-liquipediatier=1,2|filterbuttons-region=Europe}}",
   },
+    {
+    team: "KC",
+    name: "Valorant",
+    apiUrl:
+      "https://liquipedia.net/valorant/api.php?action=parse&format=json&contentmodel=wikitext&disablelimitreport=true&uselang=content&prop=text&text={{MainPageMatches/Upcoming|filterbuttons-liquipediatier=3|filterbuttons-region=Europe}}",
+  },
   {
     team: "KCBS",
     name: "Valorant",
