@@ -40,3 +40,7 @@ export const WATCHED_TEAMS_GAMES = [
     game: "tft",
   },
 ];
+
+// Test date for development - set to a specific date to test with future matches
+// Format: YYYY-MM-DD (e.g., "2026-01-24")
+export const TEST_DATE: string | null = process.env.TEST_DATE || null;

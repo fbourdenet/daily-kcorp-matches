@@ -5,10 +5,12 @@ export class LiquipediaScraper {
   private baseUrl: string = "https://liquipedia.net";
   private team: string;
   private game: string;
+  private testDate?: Date;
 
-  constructor(team: string, game: string) {
+  constructor(team: string, game: string, testDate?: Date) {
     this.team = team;
     this.game = game;
+    this.testDate = testDate;
   }
 
   private getLiquipediaUrl(): string {
@@ -37,21 +39,24 @@ export class LiquipediaScraper {
     const document = dom.window.document;
     const matches: Match[] = [];
 
-    const matchTables = document.querySelectorAll(
-      ".fo-nttax-infobox.panel table.wikitable.wikitable-striped.infobox_matches_content"
+    // New carousel-based structure
+    const carouselItems = document.querySelectorAll(
+      ".carousel .carousel-content .carousel-item"
     );
 
-    matchTables.forEach((table) => {
-      const teamLeft = this.extractTeamData(table, ".team-left");
-      const teamRight = this.extractTeamData(table, ".team-right");
-      const tournament = this.extractTournamentData(table);
-      const dateTime = this.extractDateTime(table);
-      const format = this.extractMatchFormat(table);
+    carouselItems.forEach((item) => {
+      const matchInfo = item.querySelector(".match-info.match-info--vertical");
+      if (!matchInfo) return;
+
+      const teams = this.extractTeamsFromOpponentRows(matchInfo);
+      const tournament = this.extractTournamentData(matchInfo);
+      const dateTime = this.extractDateTime(matchInfo);
+      const format = this.extractMatchFormat(matchInfo);
 
       if (dateTime && this.isMatchToday(dateTime)) {
         matches.push({
-          teamLeft,
-          teamRight,
+          teamLeft: teams.teamLeft,
+          teamRight: teams.teamRight,
           tournament,
           dateTime,
           format,
@@ -63,28 +68,41 @@ export class LiquipediaScraper {
     return matches;
   }
 
-  private extractTeamData(
-    matchTable: Element,
-    selector: string
-  ): Team {
-    const teamElement = matchTable.querySelector(
-      `${selector} .team-template-text a`
-    );
-    const iconElement = matchTable.querySelector(
-      `${selector} .team-template-image-icon img`
-    );
+  private extractTeamsFromOpponentRows(
+    matchInfo: Element
+  ): { teamLeft: Team; teamRight: Team } {
+    const opponentRows = matchInfo.querySelectorAll(".match-info-opponent-row");
 
-    return {
-      name: teamElement?.textContent?.trim() || "Unknown Team",
-      icon: iconElement ? this.baseUrl + iconElement.getAttribute("src") : null,
+    const extractTeamFromRow = (row: Element): Team => {
+      const nameElement = row.querySelector(".block-team span.name");
+      const iconElement = row.querySelector(".team-template-image-icon img");
+
+      // Get team name - might be in an <a> tag or just text
+      let teamName = "Unknown Team";
+      if (nameElement) {
+        const linkElement = nameElement.querySelector("a");
+        teamName = linkElement
+          ? linkElement.textContent?.trim() || "Unknown Team"
+          : nameElement.textContent?.trim() || "Unknown Team";
+      }
+
+      return {
+        name: teamName,
+        icon: iconElement ? this.baseUrl + iconElement.getAttribute("src") : null,
+      };
     };
+
+    const teamLeft = opponentRows[0] ? extractTeamFromRow(opponentRows[0]) : { name: "Unknown Team", icon: null };
+    const teamRight = opponentRows[1] ? extractTeamFromRow(opponentRows[1]) : { name: "Unknown Team", icon: null };
+
+    return { teamLeft, teamRight };
   }
 
   private extractTournamentData(
-    matchTable: Element
+    matchInfo: Element
   ): Tournament {
-    const tournamentElement = matchTable.querySelector(
-      ".tournament-text-flex a"
+    const tournamentElement = matchInfo.querySelector(
+      ".match-info-tournament-name a"
     );
 
     return {
@@ -102,16 +120,16 @@ export class LiquipediaScraper {
     return timestamp ? new Date(Number(timestamp) * 1000).toISOString() : null;
   }
 
-  private extractMatchFormat(matchTable: Element): string | null {
-    const formatElement = matchTable.querySelector(".versus-lower abbr");
-    return formatElement?.textContent?.trim().toUpperCase() || null;
+  private extractMatchFormat(matchInfo: Element): string | null {
+    // Format info is not available in the new carousel structure
+    return null;
   }
 
   private isMatchToday(dateTime: string | null): boolean {
     if (!dateTime) return false;
 
     const matchDate = new Date(dateTime);
-    const today = new Date();
+    const today = this.testDate || new Date();
 
     return (
       matchDate.getDate() === today.getDate() &&
