@@ -14,18 +14,30 @@ export class LiquipediaScraper {
   }
 
   private getLiquipediaUrl(): string {
-    return `${this.baseUrl}/${this.game}/${this.team}`;
+    return `${this.baseUrl}/${this.game}/api.php?action=parse&page=${this.team}&format=json&prop=text`;
   }
 
   async fetchHtmlContent(): Promise<string> {
     const URL = this.getLiquipediaUrl()
 
     try {
-      const response = await fetch(URL);
+      const response = await fetch(URL, {
+        headers: {
+          "User-Agent": "DailyKcMatches/1.0",
+        },
+      });
       if (!response.ok) {
         throw new Error(`Failed to fetch ${URL}: ${response.statusText}`);
       }
-      return response.text();
+      const data = await response.json();
+      const htmlContent = data?.parse?.text?.["*"];
+
+      if (!htmlContent) {
+        throw new Error(
+          `No content found for page ${this.team} (${this.game}). The page may not exist.`
+        );
+      }
+      return htmlContent;
     } catch (error) {
       console.error(`Error fetching HTML content from ${URL}:`, error);
       throw error;

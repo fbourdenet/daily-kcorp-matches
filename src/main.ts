@@ -8,6 +8,9 @@ import { DiscordBot } from "./utils/discord.class";
 import { LiquipediaScraper } from "./utils/scraper.class";
 import { sortMatchesByDateTime } from "./utils/match.utils";
 
+const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
 const main = async () => {
 
   try {
@@ -26,6 +29,7 @@ const main = async () => {
       const matches = await scraper.getUpcomingMatches();
 
       allMatches.push(...matches);
+      await sleep(2000);
     }
 
     // Sort matches chronologically (earliest to latest)
